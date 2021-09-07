@@ -5,10 +5,8 @@
     "node": true
   },
   "extends": [
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/prettier",
-    "prettier/standard",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript"
@@ -19,11 +17,8 @@
     "sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint",
-    "prettier"
+    "@typescript-eslint"
   ],
-  "rules": {
-    "prettier/prettier": "error"
-  },
-  "root": true
+  "root": true,
+  "rules": {}
 }
