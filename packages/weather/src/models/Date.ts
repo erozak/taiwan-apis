@@ -1,4 +1,6 @@
+export type UtcDatetime = string;
+
 /**
- * format: YYYY-MM-DD hh:mm:ss
+ * format: M-d
  */
-export type DateTime = string;
+export type LunarDate = string;

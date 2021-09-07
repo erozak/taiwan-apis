@@ -1,80 +1,47 @@
-import { DateTime } from './Date';
+import type { UtcDatetime, LunarDate } from './Date';
+import type { MeasureUnit } from './Measure';
+import type { LocationName } from './Location';
 
-export namespace TideForecast {
-  export enum StationElementName {
-    MOON_CALENDAR = '農曆',
-    TIDAL_RANGE = '潮差',
-    DAILY_TIDE = '1日潮汐',
-  }
+export enum TidalDatum {
+  TAIWAN_VERTICAL_DATUM = 'twvd',
+  MEAN_SEA_LEVEL = 'msl',
+  LOWEST_ASTRONOMICAL_TIDE = 'lat',
+}
 
-  export enum TidalRange {
-    MACRO = '大',
-    MESO = '中',
-    MICRO = '小',
-  }
+export enum TidalRange {
+  MACRO = 'macro',
+  MESO = 'meso',
+  MICRO = 'micro',
+}
 
-  export enum TideType {
-    LOW_WATER = '乾潮',
-    HIGH_WATER = '滿潮',
-  }
+export enum TideType {
+  LOW_WATER = 'lowWater',
+  HIGH_WATER = 'highWater',
+}
 
-  export const TIDE_TYPE_NAME = '潮汐';
+export type TidalDatumMeasure = {
+  value: number;
+  unit: MeasureUnit;
+}
 
-  export interface TideParam {
-    parameterName: typeof TIDE_TYPE_NAME;
-    parameterValue: TideType;
-  }
+export type TidalDatumMeasureCollection = Record<TidalDatum, TidalDatumMeasure | null>;
 
-  export enum SeaLevelMeasureType {
-    TAIWAN_VERTICAL_DATUM = '潮高(TWVD)',
-    MEAN_SEA_LEVEL = '潮高(當地)',
-    CHART_DATUM = '潮高(相對海圖)',
-  }
+export interface TideForecast {
+  datetime: UtcDatetime;
+  type: TideType;
+  datum: TidalDatumMeasureCollection;
+}
 
-  export interface SeaLevelParam {
-    parameterName: SeaLevelMeasureType;
-    parameterValue: string;
-    parameterMeasure: string;
-  }
+export interface DailyTideForecast {
+  startDatetime: UtcDatetime;
+  endDatetime: UtcDatetime;
+  range: TidalRange;
+  lunarDate: LunarDate;
+  forecasts: TideForecast[];
+}
 
-  export interface DailyRecord {
-    dataTime: DateTime;
-    parameter: Array<TideParam | SeaLevelParam>;
-  }
-
-  export enum ElementName {
-    DAILY_TIDE = '1日潮汐',
-    TIDAL_RANGE = '潮差',
-    LUNAR_CALENDAR_DATE = '農曆',
-  }
-
-  export interface DailyTideElement {
-    elementName: ElementName.DAILY_TIDE;
-    time: DailyRecord[];
-  }
-
-  export interface TidalRangeElement {
-    elementName: ElementName.TIDAL_RANGE;
-    elementValue: TidalRange;
-  }
-
-  export interface LunarCalendarDateElement {
-    elementName: ElementName.LUNAR_CALENDAR_DATE;
-    /**
-     * format: MM/DD
-     */
-    elementValue: string;
-  }
-
-  export interface Forecast {
-    endTime: string;
-    startTime: string;
-    weatherElement: Array<DailyTideElement | LunarCalendarDateElement | TidalRangeElement>;
-  }
-
-  export interface Station {
-    locationsName: string;
-    stationId: string;
-    validTime: Forecast[];
-  }
+export interface TideForecastByStation {
+  stationId: string;
+  locationName: LocationName;
+  dailyforecasts: DailyTideForecast[];
 }

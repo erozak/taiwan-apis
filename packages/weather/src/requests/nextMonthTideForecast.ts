@@ -1,5 +1,1 @@
-import type { SuccessResult } from '../models/Result';
-import type { TideForecast } from '../models/TideForecast';
-import type { LocationDataWithId } from '../models/Data';
-
-type NextMonthTideForecastResult = SuccessResult<LocationDataWithId<TideForecast.Station>>;
+const NEXT_MONTH_TIDE_FORECAST_RESOURCE_ID = 'F-A0021-001';
