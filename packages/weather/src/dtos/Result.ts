@@ -4,19 +4,18 @@ export enum ResourceFieldType {
   DOUBLE = 'Double',
 }
 
-export interface ResourceField<T extends string = string> {
+export interface ResourceField {
   id: string;
-  type: T;
+  type: string;
 }
 
-export type ResultResource<
-  Fields extends Record<string, ResourceField> = Record<string, never>,
-> = Fields & {
+export interface ResultResource {
   resource_id: string;
-};
+  fields: ResourceField[];
+}
 
-export interface SuccessResult<Record, Result = ResultResource> {
-  success: true;
-  result: Result;
-  records: Record;
+export interface SuccessResult<T> {
+  success: 'true';
+  result: ResultResource;
+  records: T;
 }
