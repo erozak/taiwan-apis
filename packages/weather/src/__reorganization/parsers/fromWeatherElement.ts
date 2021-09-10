@@ -13,7 +13,7 @@ export const fromWeatherElement = <S extends Dto.WeatherElement>(
 ) => (params: Dto.WeatherElement[]): E.Either<ParseError, S> =>
   pipe(
     params,
-    Dto.getWeatherElement(name),
+    Dto.matchWeatherElement(name),
     O.chain(flow(
       O.fromPredicate(refinement)
     )),

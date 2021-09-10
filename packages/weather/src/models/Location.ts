@@ -1,1 +1,3 @@
-export type LocationName = string;
+export interface Location {
+  locationName: string;
+}

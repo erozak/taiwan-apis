@@ -1,5 +1,6 @@
-export enum WeatherElementName {
-  WX = 'Wx',
-  POP = 'PoP',
-  POP_12H = 'PoP12h',
-}
+import type { WeatherElementWithForecastItems } from './WeatherElementWithForecastItems';
+import type { WeatherElementWithValue } from './WeatherElementWithValue';
+
+export type WeatherElement<I = unknown> =
+  | WeatherElementWithForecastItems<I>
+  | WeatherElementWithValue
